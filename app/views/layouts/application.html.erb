@@ -1,14 +1,18 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>PracticeApp</title>
+  <title><%= full_title(yield(:title)) %></title>
+  <link href='http://fonts.googleapis.com/css?family=Raleway:900,600' rel='stylesheet' type='text/css'>
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
 </head>
 <body>
-
-<%= yield %>
-
+	<%= render 'layouts/header' %>
+	<div class="container">
+		<%= yield %>
+		<%= render 'layouts/footer' %>
+		
+	</div>
 </body>
 </html>
