@@ -7,6 +7,8 @@ gem 'rails', '4.1.1'
 gem 'sqlite3', group: :development
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 4.0.3'
+#for email validation: require it into model
+gem 'valid_email' 
 
 # Use Uglifier as compressor for JavaScript assets
 gem 'uglifier', '>= 1.3.0'
