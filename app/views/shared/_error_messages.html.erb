@@ -1,7 +1,7 @@
 <% if @user.errors.any? %>
 	<div id="error-explanation">
 		<div>
-			<% flash[:error] = "Invalid Form" %>
+			<% flash.now[:error] = "Invalid Form" %>
 		</div>
 		<ul>
 			<% @user.errors.full_messages.each do |msg| %>

@@ -4,8 +4,13 @@
 			<%= link_to 'I GOT PLAYED', root_path, id: "logo" %>
 			<nav>
 				<ul class="right-nav">
-					<li> <%= link_to 'Sign in', '#' %></li>
+					<% if signed_in? %>
+					<li><%= link_to 'Profile', current_user %></li>
+					<li> <%= link_to 'Sign out', signout_path, method: 'delete' %> </li>
+					<% else %>
+					<li> <%= link_to 'Sign in', signin_path %></li>
 					<li> <%= link_to 'Sign up', signup_path %></li>
+					<% end %>
 				</ul>
 			</nav>
 		</div>
