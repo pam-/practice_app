@@ -1,5 +1,11 @@
 <% provide(:title, @user.name) %>
 <div class="wrapper">
-	<h1><%= @user.name %></h1>
-	
+	<div id="username"><h1><%= link_to @user.name.upcase, @user %></h1></div>
+	<div id="sidebar">
+		<ul>
+			<li><%= link_to 'Settings', edit_user_path(@user, current_user) %></li> 
+			<li> <%= link_to 'My Posts', '#' %> </li>
+			<li> <%= link_to  'Sign out', signout_path %></li>
+		</ul>
+	</div>
 </div>

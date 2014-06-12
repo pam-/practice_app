@@ -1,0 +1,10 @@
+<%= provide(:title, 'Edit user') %>
+<div class="wrapper">
+	<div class="form">
+	<p>UPDATE YOUR PROFILE</p>
+		<%= form_for(@user) do  |f| %>
+		<%= render 'fields', f: f %>
+		<%= f.submit "Save Changes", class: "button-large"%>
+		<% end %>
+	</div>
+</div>

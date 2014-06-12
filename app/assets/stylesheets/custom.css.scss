@@ -83,6 +83,41 @@ a, a:visited {
     }
 }
 
+/* user page*/
+
+#username{
+    cursor: pointer;
+    width: 30%;
+    height: 60px;
+    background-color: #eeeeee;
+    border-radius: 10px;
+    h1{
+        padding: 10px;
+    }
+}
+
+/* sidebar */
+
+#sidebar{
+    cursor: pointer;
+    width: 30%;
+    height: 300px;
+    background-color: #eeeeee;
+    margin-top: 20px;
+    border-radius: 10px;
+    ul{
+        list-style:none;
+        padding: 20px;
+        font-size: 30px;
+        font-weight: 600;
+        li{
+            display: block;
+            margin-top: 30px;
+        }
+    }
+}
+
+
 /* forms */
 
 .form {
@@ -143,6 +178,11 @@ input:focus {
 
 .alert-error {
     background-color: rgba(255, 0, 0, 1);
+    font-size: 20px;
+}
+
+.alert-notice {
+    background-color: rgba(255, 255, 0, 0.4);
     font-size: 20px;
 }
 /* footer */
