@@ -1,0 +1,14 @@
+<%= provide(:title, 'Stories') %>
+
+<div class="wrapper">
+	<h1>Stories</h1>
+	<%= will_paginate %>
+
+	<ul>
+		<% @experiences.each do |experience| %>
+		<li> <%= experience %> </li>
+		<% end %>
+	</ul>
+
+	<%= will_paginate %>
+</div>

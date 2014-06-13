@@ -89,4 +89,22 @@ RSpec.describe "UserPages", :type => :request do
       specify { expect(user.reload.email).to eq new_email }
     end
   end
+
+  describe "experiences index do" do
+    let(:user) { FactoryGirl.create(:user) }
+
+    before do
+      sign_in user
+      visit experiences_path
+    end
+
+    it { should have_title('Stories') }
+
+    describe "pagination" do
+      before(:all) { 30.times { FactoryGirl.create(:experience) } }
+      after(:all) { Experience.delete_all }
+
+      it { should have_selector('div.pagination') }
+    end
+  end
 end

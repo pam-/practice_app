@@ -16,6 +16,7 @@ RSpec.describe User, :type => :model do
   it { should respond_to(:password_confirmation) }
   it { should respond_to(:remember_token) }
   it { should respond_to(:authenticate) }
+  it { should respond_to(:experiences) }
 
 
   it { should be_valid }
@@ -72,5 +73,18 @@ RSpec.describe User, :type => :model do
   describe "remember token" do
     before { @user.save }
     its(:remember_token) { should_not be_blank }
+  end
+
+  describe "experience associations" do
+    
+    before { @user.save }
+    let!(:older_experience) do
+      FactoryGirl.create(:experience, user: @user, created_at: 1.day.ago)
+    end 
+    let!(:newer_experience) { FactoryGirl.create(:experience, user: @user, created_at: 1.hour.ago)  }
+
+    it "should have the right experiences in the right order" do
+      expect(@user.experiences.to_a).to eq [newer_experience, older_experience]
+    end
   end
 end

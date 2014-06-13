@@ -1,6 +1,7 @@
 require 'valid_email'
 
 class User < ActiveRecord::Base
+  has_many :experiences
   before_save { self.email = email.downcase }
   before_create :create_remember_token #before_create in order to assign token to user
 	validates :name, presence: true, length: { maximum: 50 }#, uniqueness: true
