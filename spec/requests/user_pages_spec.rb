@@ -4,6 +4,39 @@ RSpec.describe "UserPages", :type => :request do
 
 	subject { page }
 
+  describe "index" do
+    before do
+      sign_in FactoryGirl.create(:user)
+      FactoryGirl.create(:user, name: "Pam", email: "pam@example.com")
+      FactoryGirl.create(:user, name: "Lala", email: "lala@example.com")
+      visit users_path #index
+    end
+
+    it { should have_title('All users') }
+
+    it "should list all users" do
+      User.all.each do |user|
+        expect(page).to have_selector('li', text: user.name)
+      end 
+    end
+
+    describe "admin" do
+      let(:admin) { FactoryGirl.create(:admin) }
+      before do
+        sign_in admin
+        visit users_path
+      end
+
+      it { should have_link('delete') }
+      it "should be able to delete another user" do
+        expect do
+          click_link('delete', match: :first)
+        end.to change(User, :count).by(-1)
+      end
+      it { should_not have_link('delete', href: user_path(admin)) }
+    end
+  end
+
 	describe "profile page" do
 		let(:user) { FactoryGirl.create(:user) }
 		before { visit user_path(user) }
@@ -99,12 +132,7 @@ RSpec.describe "UserPages", :type => :request do
     end
 
     it { should have_title('Stories') }
-
-    describe "pagination" do
-      before(:all) { 30.times { FactoryGirl.create(:experience) } }
-      after(:all) { Experience.delete_all }
-
-      it { should have_selector('div.pagination') }
-    end
+    it { should have_selector('li') }
+    #it { should have_link("Reply", href: reply_path)}
   end
 end

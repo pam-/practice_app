@@ -5,7 +5,7 @@
 			<nav>
 				<ul class="right-nav">
 					<% if signed_in? %>
-					<li><%= link_to 'Profile', current_user %></li>
+					<li><%= link_to current_user.name, current_user %></li>
 					<li> <%= link_to 'Sign out', signout_path, method: 'delete' %> </li>
 					<% else %>
 					<li> <%= link_to 'Sign in', signin_path %></li>

@@ -118,6 +118,52 @@ a, a:visited {
 }
 
 
+/* indexes and pagination*/
+
+.listed {
+    background-color: #eeeeee;
+    padding-left: 10px;
+    border-radius: 10px;
+    padding-bottom: 50px;
+    ul{
+        list-style:none;
+        padding: 20px;
+        font-size: 20px;
+        font-weight: 600;
+        li{
+            display: block;
+            margin-top: 30px;
+        }
+    }
+}
+
+.pagination a, .pagination span, .pagination em {
+    padding: 0.2em 0.5em;
+    display: block;
+    float: left;
+    margin-right: 1px; 
+}
+  .pagination .disabled {
+    color: #999999;
+    border: 1px solid #dddddd; 
+}
+  .pagination .current {
+    font-style: normal;
+    font-weight: bold;
+    background: rgba(255, 0, 0, 0.8);
+    color: black;
+    border: 1px solid rgba(255, 0, 0, 0.8); 
+}
+.pagination a {
+    text-decoration: none;
+    color: #999999;
+    border: 1px solid #dddddd; 
+}
+.pagination a:hover, .pagination a:focus {
+      color: rgba(255, 0, 0, 0.8);
+      border-color: rgba(255, 0, 0, 0.2); 
+}
+
 /* forms */
 
 .form {
@@ -143,6 +189,8 @@ input:focus {
     outline:none;
 }
 
+/* buttons */
+
 .button-large {
     border-radius: 15px;
     margin-top: 20px;
@@ -150,6 +198,12 @@ input:focus {
     width: 200px;
     background-color: rgba(255,0,0, 0.8);
     font-size: 20px;
+}
+
+.small-button{
+    background-color: rgba(255, 0, 0, 0.8);
+    margin: 10px;
+    
 }
 
 /* links */

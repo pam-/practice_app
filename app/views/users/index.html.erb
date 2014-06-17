@@ -1,0 +1,12 @@
+<%= provide(:title, "All users") %> 
+
+<div class="wrapper">
+	<div class="listed">
+		<p>Users Directory</p>
+		<%= will_paginate %>
+			<ul>
+				<%= render @users %>
+			</ul> 
+		<%= will_paginate %>
+	</div>
+</div>

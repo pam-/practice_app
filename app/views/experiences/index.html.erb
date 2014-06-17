@@ -1,14 +1,14 @@
 <%= provide(:title, 'Stories') %>
 
 <div class="wrapper">
-	<h1>Stories</h1>
+	<div class="listed">
+	<p>Stories</p>
 	<%= will_paginate %>
 
 	<ul>
-		<% @experiences.each do |experience| %>
-		<li> <%= experience %> </li>
-		<% end %>
+		<%= render @experiences %>
 	</ul>
 
 	<%= will_paginate %>
+	</div>
 </div>
