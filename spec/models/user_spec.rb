@@ -96,5 +96,14 @@ RSpec.describe User, :type => :model do
     it "should have the right experiences in the right order" do
       expect(@user.experiences.to_a).to eq [newer_experience, older_experience]
     end
+
+    it "should destroy associated experiences" do
+      experiences = @user.experiences.to_a
+      @user.destroy
+      expect(experiences).not_to be_empty
+      experiences.each do |experience|
+        expect(Experience.where(id: experience.id)).to be_empty
+      end 
+    end
   end
 end

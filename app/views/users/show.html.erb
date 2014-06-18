@@ -1,11 +1,22 @@
 <% provide(:title, @user.name) %>
 <div class="wrapper">
-	<div id="username"><h1><%= link_to @user.name.upcase, @user %></h1></div>
-	<div id="sidebar">
-		<ul>
-			<li><%= link_to 'Settings', edit_user_path(@user, current_user) %></li> 
-			<li> <%= link_to 'Browse', '#' %> </li>
-			<li> <%= link_to  'Sign out', signout_path %></li>
-		</ul>
+	<div class="left">
+		<div id="username"><h1><%= link_to @user.name.upcase, @user %></h1></div>
+		<div id="sidebar">
+			<ul>
+				<li><%= link_to 'Settings', edit_user_path(@user, current_user) %></li> 
+				<li> <%= link_to 'Browse', '#' %> </li>
+				<li> <%= link_to  'Sign out', signout_path %></li>
+			</ul>
+		</div>
+	</div>
+
+	<div class="posts-wrapper">
+		<% if @user.experiences.any? %>
+		<%= will_paginate @experiences %>
+			<ol class="posts">
+				<%= render @experiences %>
+			</ol>
+			<% end %>
 	</div>
 </div>

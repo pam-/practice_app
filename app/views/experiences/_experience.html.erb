@@ -1,4 +1,7 @@
 <li>
-	<span class="post-content"><%= truncate(experience.content, length: 200) { button_to "Continue", { action: "#" }, method: :get } %> </span>
+	<span class="post-title"><%= experience.title %></span>
+	<span class="post-content">
+		<%= truncate(experience.content, length: 200) { button_to "Continue", { action: "#" }, method: :get } %> 
+	</span>
 	<span class="timestamp"> posted <%= time_ago_in_words(experience.created_at) %> ago. </span>
 </li>

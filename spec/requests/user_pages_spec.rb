@@ -39,10 +39,20 @@ RSpec.describe "UserPages", :type => :request do
 
 	describe "profile page" do
 		let(:user) { FactoryGirl.create(:user) }
-		before { visit user_path(user) }
+    let!(:m1) { FactoryGirl.create(:experience, user: user, title: "Oula", content: "Lolli") }
+
+		before do
+      sign_in user
+      visit user_path(user)
+    end  
 
 		it { should have_content(user.name.upcase) }
 		it { should have_title(user.name) }
+
+    describe "experience on page" do
+      it { should have_content(m1.content) }
+      #it { should have_content(m1.title) }
+    end
 	end
 
   describe "signup page" do
@@ -76,12 +86,16 @@ RSpec.describe "UserPages", :type => :request do
   		end
 
   		describe "after saving the user" do
-  			before { click_button submit }
-  			let(:user) { User.find_by(email: "user@example.com") }
+
+        before do
+          click_button submit
+        end 
+
+        let(:user) { User.find_by(email: "user@example.com") }
 
   			#it { should have_link('Sign out') }
   			it { should have_title(user.name) }
-  			it { should have_selector('div.alert-success', text: 'Welcome') }
+  			it { should have_selector('div.alert-success', text: 'Welcome! Happy venting!') }
   		end
   	end
   end

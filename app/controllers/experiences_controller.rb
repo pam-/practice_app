@@ -13,7 +13,7 @@ class ExperiencesController < ApplicationController
 	private
 
 	def experience_params
-		params.require(:experience).permit(:content)
+		params.require(:experience).permit(:content, :title)
 	end 
 
 	def signed_in_user
