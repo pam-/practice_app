@@ -3,10 +3,10 @@
 <div class="wrapper">
 	<div class="listed">
 		<p>Users Directory</p>
-		<%= will_paginate %>
+		<%= will_paginate @users %>
 			<ul>
 				<%= render @users %>
 			</ul> 
-		<%= will_paginate %>
+		<%= will_paginate @users %>
 	</div>
 </div>

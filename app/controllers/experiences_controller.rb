@@ -6,6 +6,10 @@ class ExperiencesController < ApplicationController
 		@experiences = Experience.paginate(page: params[:page], per_page: 10)
 	end
 
+  def show
+    @experience = Experience.find(params[:id])
+  end
+
 	private
 
 	def experience_params

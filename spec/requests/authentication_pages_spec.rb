@@ -113,6 +113,10 @@ RSpec.describe "Authentication", :type => :request do
         before { delete user_path(user) }
         specify { expect(response).to redirect_to(root_url) }
       end
+
+      #describe "submitting a DELETE request to the Experiences#destroy action" do
+        #before { delete  }
+      #end
     end
   end
 end
