@@ -10,6 +10,7 @@ class UsersController < ApplicationController
   def show
   	@user = User.find(params[:id])
     @experiences = @user.experiences.paginate(page: params[:page], per_page: 10)
+    @experience = current_user.experiences.build if signed_in?
   end 
 
   def new
@@ -50,13 +51,6 @@ class UsersController < ApplicationController
   def user_params
   	params.require(:user).permit(:name, :email, :password, :password_confirmation) #admin is not an option for security reasons
   end 
-
-  def signed_in_user
-    unless signed_in?
-      store_location
-      redirect_to signin_url, notice: "Please sign in."  #flash[:notice]
-    end
-  end
 
   def correct_user
     @user = User.find(params[:id])

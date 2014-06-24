@@ -7,6 +7,13 @@
 				<li><%= link_to 'Settings', edit_user_path(@user, current_user) %></li> 
 				<li> <%= link_to 'Browse', '#' %> </li>
 				<li> <%= link_to  'Sign out', signout_path %></li>
+				<% if signed_in? && current_user?(@user) %>
+				<li><%= link_to 'Settings', edit_user_path(@user, current_user), class: "small-button" %></li> 
+				<li> <%= link_to 'Browse', '#', class: "small-button" %> </li>
+				<li> <%= link_to  'Sign out', signout_path, method: 'delete', class: "small-button" %></li>
+				<% else %>
+				<li> <%=  link_to 'Follow', '#', class: "small-button" %> </li>
+				<% end %>
 			</ul>
 		</div>
 	</div>
@@ -18,5 +25,20 @@
 				<%= render @experiences %>
 			</ol>
 			<% end %>
+
+	<div class="right">
+		<div class="new-post"> 
+			<%= form_for(@experience) do |f| %> 
+				<%= render 'shared/experience_form', f: f %> 
+			<% end %>
+		</div>
+		<div class="posts-wrapper">
+		<% if @user.experiences.any? %>
+		<%= will_paginate @experiences %>
+			<ol>
+				<%= render @experiences %>
+			</ol>
+			<% end %>
+		</div>
 	</div>
 </div>

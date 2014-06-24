@@ -10,6 +10,23 @@ class ExperiencesController < ApplicationController
     @experience = Experience.find(params[:id])
   end
 
+  def create 
+    @experience = current_user.experiences.build(experience_params)
+    if @experience.save
+      flash[:success] = "Post created!"
+      redirect_to @experience
+    else
+      flash.now[:error] = "Couldn't post!"
+      redirect_to current_user
+    end
+  end
+
+  def destroy
+    Experience.find(params[:id]).destroy
+    flash[:success] = "Successfully deleted!"
+    redirect_to current_user
+  end
+
 	private
 
 	def experience_params

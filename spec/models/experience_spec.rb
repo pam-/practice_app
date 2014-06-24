@@ -24,9 +24,14 @@ RSpec.describe Experience, :type => :model do
     it { should_not be_valid }
   end
 
-  describe "too long" do
-    before { @experience.content = "a" * 141 } #set the new value to the experience before anything is done 
+  describe "with blank title" do
+    before { @experience.title = " " }
     it { should_not be_valid }
   end
+
+  # describe "too long" do
+  #   before { @experience.content = "a" * 141 } #set the new value to the experience before anything is done 
+  #   it { should_not be_valid }
+  # end
 
 end
