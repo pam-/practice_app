@@ -1,5 +1,4 @@
 <li>
-	<span class="post-title"><%= experience.title %></span>
 	<span class="post-title"><%= link_to experience.title, experience %></span>
 	<span class="post-content">
 		<%= truncate(experience.content, length: 200) { button_to "Continue", { action: "#" }, method: :get } %> 
