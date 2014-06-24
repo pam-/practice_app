@@ -2,7 +2,7 @@
 <div class="wrapper">
 	<div class="form">
 	<p>SIGN UP</p>
-		<%= form_for(@user) do  |f| %>
+		<%= form_for(@user) do |f| %>
 		<%= render 'fields', f: f %>
 		<%= f.submit "Create Account", class: "button-large"%>
 		<% end %>

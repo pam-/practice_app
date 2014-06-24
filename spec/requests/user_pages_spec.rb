@@ -65,7 +65,7 @@ RSpec.describe "UserPages", :type => :request do
 
   	describe "with valid information" do
   		before do
-  			fill_in "Name", 				with: "Example User"
+  			fill_in "Username", 		with: "User"
   			fill_in "Email", 				with: "user@example.com"
   			fill_in "Password", 		with: "foobar"
   			fill_in "Confirmation", with: "foobar"
@@ -105,10 +105,10 @@ RSpec.describe "UserPages", :type => :request do
     end
 
     describe "with valid information" do
-      let(:new_name) { "New Name" }
+      let(:new_name) { "NewName" }
       let(:new_email) { "new@example.com" }
       before do
-        fill_in "Name", with: new_name
+        fill_in "Username", with: new_name
         fill_in "Email", with: new_email
         fill_in "Password", with: user.password
         fill_in "Confirmation", with: user.password
@@ -133,6 +133,7 @@ RSpec.describe "UserPages", :type => :request do
 
     it { should have_title('Stories') }
     it { should have_selector('li') }
+    it { should have_content(user.name) }
     #it { should have_link("Reply", href: reply_path)}
   end
 end

@@ -1,5 +1,6 @@
 <%= provide(:title, @experience.user_id) %>
 
 <div class="wrapper">
-	<%= @experience.content %>
+		<div class="single-title"> <%= @experience.title %> </div>
+		<div class="single-post">  <%= @experience.content %> </div>
 </div>

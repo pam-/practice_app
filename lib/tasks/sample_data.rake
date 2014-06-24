@@ -18,8 +18,9 @@ namespace :db do
 
 		users = User.all.limit(4)
 		20.times do
+			title = "Title"
 			content = Faker::Lorem.sentence(5)
-			users.each { |user| user.experiences.create!(content: content) }
+			users.each { |user| user.experiences.create!(content: content, title: title) }
 		end
 	end 
 end

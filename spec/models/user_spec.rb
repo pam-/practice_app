@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe User, :type => :model do
   
   before do
-    @user = User.new(name: "Example User", email: "user@example.com", password: "foobar", 
+    @user = User.new(name: "User", email: "user@example.com", password: "foobar", 
                      password_confirmation: "foobar")
   end
 
@@ -53,7 +53,7 @@ RSpec.describe User, :type => :model do
 
   describe "when password is not present" do
     before do
-      @user = User.new(name: "Example User", email: "user@example.com", password: " ", 
+      @user = User.new(name: "User", email: "user@example.com", password: " ", 
                      password_confirmation: " ")
     end 
     it { should_not be_valid }

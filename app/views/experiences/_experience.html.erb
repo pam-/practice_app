@@ -1,4 +1,10 @@
 <li>
-	<span class="post-content"><%= truncate(experience.content, length: 200) { button_to "Continue", { action: "#" }, method: :get } %> </span>
+	<span class="post-title"><%= link_to experience.title, experience %></span>
+	<span class="post-content">
+		<%= truncate(experience.content, length: 200) { button_to "Continue", { action: "#" }, method: :get } %> 
+	</span>
 	<span class="timestamp"> posted <%= time_ago_in_words(experience.created_at) %> ago. </span>
+	<% if current_user?(@user) %>
+	<%= link_to 'delete', experience, method: 'delete', data: {confirm: "Are you sure?"}, class: "small-button", id: "delete" %>
+	<% end %>
 </li>
