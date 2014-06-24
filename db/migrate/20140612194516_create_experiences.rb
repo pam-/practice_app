@@ -3,7 +3,6 @@ class CreateExperiences < ActiveRecord::Migration
     create_table :experiences do |t|
       t.string :content
       t.integer :user_id
-      t.string :title
 
       t.timestamps
     end
