@@ -7,6 +7,6 @@ class CreateExperiences < ActiveRecord::Migration
 
       t.timestamps
     end
-    add_index :stories, [:user_id, :created_at]
+    add_index :experiences, [:user_id, :created_at]
   end
 end
