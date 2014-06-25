@@ -1,4 +1,5 @@
-<% if current_user?(@user) %>
+<% if signed_in? && current_user?(@user) %>
+<%= form_for(@experience) do |f| %> 
 	<%= render 'shared/error_messages', object: f.object %>
 	<div class="title-area"> 
 		<%= f.text_field :title, placeholder: "Enter title..." %>
@@ -7,4 +8,5 @@
 		<%= f.text_area :content, placeholder: "Compose new post..." %>
 	</div>
 		<%= f.submit "Post", class: "small-button", id: "post" %>
+		<% end %>
 <% end %>

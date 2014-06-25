@@ -14,12 +14,10 @@
 			</ul>
 		</div>
 	</div>
-	
+
 	<div class="right">
 		<div class="new-post"> 
-			<%= form_for(@experience) do |f| %> 
-				<%= render 'shared/experience_form', f: f %> 
-			<% end %>
+				<%= render 'shared/experience_form'%> 
 		</div>
 		<div class="posts-wrapper">
 		<% if @user.experiences.any? %>
