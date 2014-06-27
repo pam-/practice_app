@@ -93,7 +93,11 @@ RSpec.describe "UserPages", :type => :request do
 
         let(:user) { User.find_by(email: "user@example.com") }
 
-  			#it { should have_link('Sign out') }
+        it "should have sign out link" do
+          visit user_path(user)
+          page.should have_link('Sign out', match: :first)
+        end
+  			
   			it { should have_title(user.name) }
   			it { should have_selector('div.alert-success', text: 'Welcome! Happy venting!') }
   		end
@@ -138,16 +142,38 @@ RSpec.describe "UserPages", :type => :request do
   end
 
   describe "experiences index do" do
-    let(:user) { FactoryGirl.create(:user) }
+    let!(:user) { FactoryGirl.create(:user) }
 
     before do
       sign_in user
       visit experiences_path
     end
 
-    it { should have_title('Stories') }
+    let!(:experience) { FactoryGirl.create(:experience, user: user, created_at: 1.day.ago) }
+
+    it { should have_title('Games') }
     it { should have_selector('li') }
     it { should have_content(user.name) }
-    #it { should have_link("Reply", href: reply_path)}
+
+    # it "should have edit link" do
+    #   visit 'games'
+    #   page.should have_link('edit') 
+    # end
+
+    describe "for other users visiting index" do
+
+      let!(:other_user) { FactoryGirl.create(:user) }
+
+      before do 
+        sign_in other_user
+        visit experiences_path
+        #save_and_open_page
+      end 
+
+      it "should redirect to post content" do
+        click_link('read more')
+        page.should have_content(experience.content)
+      end
+    end
   end
 end

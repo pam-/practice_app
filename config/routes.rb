@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   resources :users
   resources :sessions, only: [:new, :create, :destroy]
-  resources :experiences, path: 'stories'#, only: [:index, :create]
+  resources :experiences, path: 'games'#, only: [:index, :create]
 
   root 'static_pages#home'
 

@@ -42,6 +42,7 @@ group :development, :test do
   gem 'rspec-rails',      ">= 2.0.0.beta"
   gem 'rspec-its',  ">= 1.0.1"
   gem 'factory_girl_rails', '4.4.0'
+  gem 'launchy'
 end
 
 group :test do

@@ -6,7 +6,7 @@
 			<ul>
 				<% if signed_in? && current_user?(@user) %>
 				<li><%= link_to 'Settings', edit_user_path(@user, current_user), class: "small-button" %></li> 
-				<li> <%= link_to 'Browse', '#', class: "small-button" %> </li>
+				<li> <%= link_to 'Browse', experiences_path, class: "small-button" %> </li>
 				<li> <%= link_to  'Sign out', signout_path, method: 'delete', class: "small-button" %></li>
 				<% else %>
 				<li> <%=  link_to 'Follow', '#', class: "small-button" %> </li>
