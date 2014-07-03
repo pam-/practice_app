@@ -1,6 +1,12 @@
 <%= provide(:title, @experience.user_id) %>
 
 <div class="wrapper">
-		<div class="single-title"> <%= @experience.title %> </div>
+		<div class="single-title"> 
+			<%= @experience.title %> 
+		</div>
 		<div class="single-post">  <%= @experience.content %> </div>
+		<div class="social">
+			<%= link_to 'Follow', '#', class: "small-button" %>
+		</div>
+	
 </div>

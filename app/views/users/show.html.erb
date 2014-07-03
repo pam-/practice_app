@@ -1,8 +1,8 @@
 <% provide(:title, @user.name) %>
 <div class="wrapper">
 	<div class="left">
-		<div id="username"><h1><%= link_to @user.name.upcase, @user %></h1></div>
 		<div id="sidebar">
+			<h1><%= link_to @user.name.upcase, @user %></h1>
 			<ul>
 				<% if signed_in? && current_user?(@user) %>
 				<li><%= link_to 'Settings', edit_user_path(@user, current_user), class: "small-button" %></li> 
@@ -20,12 +20,21 @@
 				<%= render 'shared/experience_form'%> 
 		</div>
 		<div class="posts-wrapper">
+			<h1> 
+				<%= link_to 'MY POSTS', '#' %> 
+				<small>(<%= @user.experiences.count %>)</small>
+			</h1>
 		<% if @user.experiences.any? %>
 		<%= will_paginate @experiences %>
 			<ol>
 				<%= render @experiences %>
 			</ol>
 			<% end %>
+		</div>
+		<div class="posts-wrapper">
+			<h1> 
+				<%= link_to 'POSTS I FOLLOW', '#' %>
+			</h1>
 		</div>
 	</div>
 </div>

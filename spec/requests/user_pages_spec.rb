@@ -53,6 +53,17 @@ RSpec.describe "UserPages", :type => :request do
       it { should have_content(m1.content) }
       #it { should have_content(m1.title) }
     end
+
+    # describe "follower/following counts" do
+    #   let(:other_user) { FactoryGirl.create(:user) }
+    #   before do
+    #     user.follow!(other_user)
+    #     visit user_path(user)
+    #   end
+
+    #   it { should have_link("1 following", href: following_user_path(user)) }
+    #   it { should have_link("0 following", href: followers_user_path(user)) }
+    # end
 	end
 
   describe "signup page" do

@@ -18,6 +18,18 @@ RSpec.describe User, :type => :model do
   it { should respond_to(:authenticate) }
   it { should respond_to(:experiences) }
   it { should respond_to(:admin) }
+  it { should respond_to(:relationships) }
+  it { should respond_to(:followed_users) }
+  it { should respond_to(:reverse_relationships) }
+  it { should respond_to(:followers) }
+  it { should respond_to(:following?) }
+  it { should respond_to(:follow!) }
+  it { should respond_to(:unfollow!) }
+  it { should respond_to(:post_relationships) }
+  it { should respond_to(:followed_posts) }
+  it { should respond_to(:following_post?) }
+  it { should respond_to(:follow_post!) }
+  it { should respond_to(:unfollow_post!) }
 
 
   it { should be_valid }
@@ -104,6 +116,49 @@ RSpec.describe User, :type => :model do
       experiences.each do |experience|
         expect(Experience.where(id: experience.id)).to be_empty
       end 
+    end
+  end
+
+  describe "following" do
+    let(:other_user) { FactoryGirl.create(:user) }
+    before do
+      @user.save
+      @user.follow!(other_user)
+    end
+
+    it { should be_following(other_user) }
+    its(:followed_users) { should include(other_user) }
+
+    describe "followed user" do
+      subject { other_user }
+      its(:followers) { should include(@user) }
+    end
+
+    describe "unfollowing" do
+      before { @user.unfollow!(other_user) }
+
+      it { should_not be_following(other_user) }
+      its(:followed_users) { should_not include(other_user) }
+    end
+  end
+
+  describe "following a post" do
+    let(:other_user) { FactoryGirl.create(:user) }
+    let(:post) { FactoryGirl.create(:experience, user: other_user, created_at: 1.day.ago) }
+
+    before do
+      @user.save
+      @user.follow_post!(post)
+    end
+
+    it { should be_following_post(post) }
+    its(:followed_posts) { should include(post) }
+
+    describe "unfollowing a post" do
+      before { @user.unfollow_post!(post) }
+
+      it { should_not be_following_post(post) }
+      its(:followed_posts) { should_not include(post) }
     end
   end
 end

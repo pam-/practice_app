@@ -1,5 +1,9 @@
 Rails.application.routes.draw do
-  resources :users
+  resources :users do
+    member do
+      get :following, :followers, :followed_post #url is: /users/1/followers or /users/1/following 
+    end 
+  end 
   resources :sessions, only: [:new, :create, :destroy]
   resources :experiences, path: 'games'#, only: [:index, :create]
 
