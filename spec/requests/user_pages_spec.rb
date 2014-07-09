@@ -49,21 +49,24 @@ RSpec.describe "UserPages", :type => :request do
 		it { should have_content(user.name.upcase) }
 		it { should have_title(user.name) }
 
-    describe "experience on page" do
+    describe "page posts" do
       it { should have_content(m1.content) }
-      #it { should have_content(m1.title) }
+      it { should have_content(m1.title) }
+      it { should have_content(user.experiences.count) }
     end
 
-    # describe "follower/following counts" do
-    #   let(:other_user) { FactoryGirl.create(:user) }
-    #   before do
-    #     user.follow!(other_user)
-    #     visit user_path(user)
-    #   end
+    describe "followed posts display" do
+      let!(:other_user) { FactoryGirl.create(:user) }
+      let!(:post) { FactoryGirl.create(:experience, user: other_user) }
 
-    #   it { should have_link("1 following", href: following_user_path(user)) }
-    #   it { should have_link("0 following", href: followers_user_path(user)) }
-    # end
+      before do 
+        user.save
+        user.follow_post!(post) 
+        visit user_path(user)
+      end 
+
+      it { should have_content(post.content) }
+    end
 	end
 
   describe "signup page" do

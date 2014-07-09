@@ -45,7 +45,10 @@ end
 
 	def make_posts_relationships
 		users = User.all
-		post = Experience.first
+		posts = Experience.all
 		followers = users[1..10]
-		followers.each { |user| user.follow_post!(post) }
+		followed_posts = posts[1..5]
+		followers.each do |user| 
+			followed_posts.each { |post| user.follow_post!(post) }
+		end
 	end

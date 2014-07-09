@@ -20,21 +20,21 @@
 				<%= render 'shared/experience_form'%> 
 		</div>
 		<div class="posts-wrapper">
-			<h1> 
-				<%= link_to 'MY POSTS', '#' %> 
-				<small>(<%= @user.experiences.count %>)</small>
-			</h1>
+				<%= link_to '#' do %> 
+					<h1>
+						MY POSTS <small>( <%= @user.experiences.count %>)</small>
+					</h1>
+				<% end %>
 		<% if @user.experiences.any? %>
 		<%= will_paginate @experiences %>
 			<ol>
 				<%= render @experiences %>
 			</ol>
-			<% end %>
+		<% end %>
 		</div>
 		<div class="posts-wrapper">
-			<h1> 
-				<%= link_to 'POSTS I FOLLOW', '#' %>
-			</h1>
+					<h1>POSTS I FOLLOW <small>( <%= @user.followed_posts.count %> )</small> </h1>
+					<%= render 'shared/feed' %>
 		</div>
 	</div>
 </div>

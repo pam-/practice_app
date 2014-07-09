@@ -1,11 +1,16 @@
 Rails.application.routes.draw do
   resources :users do
     member do
-      get :following, :followers, :followed_post #url is: /users/1/followers or /users/1/following 
+      get :following, :followers #url is: /users/1/followers or /users/1/following 
     end 
   end 
   resources :sessions, only: [:new, :create, :destroy]
-  resources :experiences, path: 'games'#, only: [:index, :create]
+  resources :experiences, path: 'games' do
+    member do
+      get :followers, :followed_posts
+    end 
+  end 
+  resources :post_relationships, only: [:create, :destroy]
 
   root 'static_pages#home'
 

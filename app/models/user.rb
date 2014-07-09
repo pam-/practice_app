@@ -4,6 +4,7 @@ class User < ActiveRecord::Base
   has_many :experiences, dependent: :destroy
   has_many :post_relationships, foreign_key: "follower_id", dependent: :destroy
   has_many :followed_posts, through: :post_relationships, source: :followed
+
   has_many :relationships, foreign_key: "follower_id", dependent: :destroy
   has_many :followed_users, through: :relationships, source: :followed
   has_many :reverse_relationships, foreign_key: "followed_id", class_name: "Relationship", dependent: :destroy

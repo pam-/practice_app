@@ -125,6 +125,25 @@ a, a:visited {
         padding: 20px;
         margin-bottom: 20px;
         background-color: #eeeeee;
+        input, textarea{
+            border: 1px solid #000;
+            height: 35px;
+            width: 300px;
+            margin: 10px auto;
+            display: block;
+            text-align: center;
+            font-size: 15px;
+        }
+        input:focus {
+            outline:none;
+        }
+        .text-area textarea{
+            height: 100px;
+            text-align: left;
+        }
+        .title-area input{
+            text-align: left;
+        }
     }
     .posts-wrapper{
         background-color: #eeeeee;
@@ -232,40 +251,6 @@ a, a:visited {
     padding: 10px;
 }
 
-/* forms */
-
-.form {
-    display: block;
-    text-align: center;
-    font-size: 25px;
-    margin-top: -70px;
-    p{
-        margin-bottom: -10px;
-    }
-}
-input, textarea{
-    border: 1px solid #000;
-    height: 35px;
-    width: 300px;
-    margin: 10px auto;
-    display: block;
-    text-align: center;
-    font-size: 15px;
-}
-
-input:focus {
-    outline:none;
-}
-
-.text-area textarea{
-    height: 100px;
-    text-align: left;
-}
-
-.title-area input{
-    text-align: left;
-}
-
 /* buttons & co */
 
 .button-large {
@@ -300,6 +285,34 @@ input:focus {
 .social {
     margin: 30px;
 }
+
+/* forms */
+
+.form {
+    display: block;
+    text-align: center;
+    font-size: 25px;
+    margin-top: -70px;
+    p{
+        margin-bottom: -10px;
+    }
+    input, textarea{
+        border: 1px solid #000;
+        height: 35px;
+        width: 300px;
+        margin: 10px auto;
+        display: block;
+        text-align: center;
+        font-size: 15px;
+    }
+
+    input:focus {
+        outline:none;
+        margin-top: 20px;
+    }
+}
+
+
 /* links */
 
 .links {

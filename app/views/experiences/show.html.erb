@@ -1,12 +1,25 @@
 <%= provide(:title, @experience.user_id) %>
 
+<% if signed_in? %>
 <div class="wrapper">
 		<div class="single-title"> 
 			<%= @experience.title %> 
 		</div>
 		<div class="single-post">  <%= @experience.content %> </div>
 		<div class="social">
-			<%= link_to 'Follow', '#', class: "small-button" %>
+		<% unless current_user?(@experience.user) %> 	
+			<% if current_user.following_post?(@experience) %>
+				<%= form_for(current_user.post_relationships.find_by(followed_id: @experience.id), html: { method: 'delete' }) do |f| %>
+				<%= f.submit 'Unfollow', class: 'small-button' %>
+				<% end %>
+			<% else %>
+				<%= form_for(current_user.post_relationships.build(followed_id: @experience.id)) do |f| %>
+				<%= f.hidden_field :followed_id %>
+				<%= f.submit 'Follow', class: "small-button" %> 
+				<% end %>
+			<% end %>
+		<% end %>	
 		</div>
-	
+		<div class="reply-form"></div>
+<% end %>
 </div>
