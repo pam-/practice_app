@@ -1,7 +1,7 @@
 require 'valid_email'
 
 class User < ActiveRecord::Base
-  has_many :experiences, dependent: :destroy
+  has_many :posts, dependent: :destroy
   has_many :post_relationships, foreign_key: "follower_id", dependent: :destroy
   has_many :followed_posts, through: :post_relationships, source: :followed
 
@@ -10,6 +10,7 @@ class User < ActiveRecord::Base
   has_many :reverse_relationships, foreign_key: "followed_id", class_name: "Relationship", dependent: :destroy
   has_many :followers, through: :reverse_relationships #looks through Relationship model so no need to specifify source. Rails looks for follower_id
 
+  has_many :comments
 
   before_save { self.email = email.downcase }
   before_create :create_remember_token #before_create in order to assign token to user

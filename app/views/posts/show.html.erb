@@ -1,0 +1,39 @@
+<%= provide(:title, @post.user_id) %>
+
+<% if signed_in? %>
+<div class="wrapper">
+		<div class="single-title"> 
+			<%= @post.title %> <small class="timestamp">by <%= @post.user.name %></small>
+			<% unless current_user?(@post.user) %> 	
+			<% if current_user.following_post?(@post) %>
+				<%= form_for(current_user.post_relationships.find_by(followed_id: @post.id), html: { method: 'delete' }) do |f| %>
+				<%= f.submit 'Unfollow Post', class: 'far-right' %>
+				<% end %>
+			<% else %>
+				<%= form_for(current_user.post_relationships.build(followed_id: @post.id)) do |f| %>
+				<%= f.hidden_field :followed_id %>
+				<%= f.submit 'Follow Post', class: "far-right" %> 
+				<% end %>
+			<% end %>
+		<% end %>	
+		</div>
+		<div class="single-post">
+			<%= @post.content %> 
+		</div>
+		<div class="social">
+		
+		</div>
+
+		<% if @post.comments.any? %>
+		<div class="listed">
+
+			<p> ANY THOUGHTS?</p>
+			<%= render 'shared/comment_form' %>
+	
+			<ul>
+				<%= render partial: 'comments/comment', collection: @post.comments %>
+			</ul>
+		</div>
+		<% end %>
+<% end %>
+</div>

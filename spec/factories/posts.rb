@@ -1,5 +1,5 @@
 FactoryGirl.define do
-  factory :experience do 
+  factory :post do 
   	title "Hello World"
 		content "Lorem ipsum"
 		user

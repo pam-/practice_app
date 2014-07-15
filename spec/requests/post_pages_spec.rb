@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe "Experience Pages", :type => :request do
+RSpec.describe "Post Pages", :type => :request do
   
   subject { page }
 
@@ -22,20 +22,20 @@ RSpec.describe "Experience Pages", :type => :request do
   		describe "with valid information" do
 
   			before do 
-  				fill_in 'experience_title', with: "Hello"
-  				fill_in 'experience_content', with: "Lorem ipsum" 
+  				fill_in 'post_title', with: "Hello"
+  				fill_in 'post_content', with: "Lorem ipsum" 
   			end 
 
   			it "should create a post" do
-  				expect { click_button "Post" }.to change(Experience, :count).by(1)
+  				expect { click_button "Post" }.to change(Post, :count).by(1)
   			end
   		end
 
   		describe "with invalid information" do
-  			before { fill_in 'experience_content', with: " " }
+  			before { fill_in 'post_content', with: " " }
 
   			it "should not create a post" do
-  				expect { click_button('Post').to_not change(Experience, :count) }
+  				expect { click_button('Post').to_not change(Post, :count) }
   			end
   		end
   	end
@@ -44,11 +44,11 @@ RSpec.describe "Experience Pages", :type => :request do
   describe "visiting single post page" do
     let!(:user) { FactoryGirl.create(:user) }
     let!(:other_user) { FactoryGirl.create(:user) }
-    let!(:post) { FactoryGirl.create(:experience, user: other_user) }
+    let!(:post) { FactoryGirl.create(:post, user: other_user) }
 
     before do
       sign_in user
-      visit experience_path(post)
+      visit post_path(post)
     end
 
     it { should have_button('Follow') }
@@ -64,20 +64,50 @@ RSpec.describe "Experience Pages", :type => :request do
 
     describe "toggling button to unfollow" do
       before { click_button 'Follow' }
-      it { should have_xpath("//input[@value='Unfollow']") }
+      it { should have_xpath("//input[@value='Unfollow Post']") }
     end
 
     describe "unfollowing a post" do
       before do 
         user.save
         user.follow_post!(post)
-        visit experience_path(post)
+        visit post_path(post)
         #save_and_open_page 
       end 
       it " should decrease user's followed posts" do
         expect do
           click_button 'Unfollow'
         end.to change(user.followed_posts, :count).by(-1)
+      end
+    end
+
+    describe "posting a reply" do
+      before do
+        sign_in user
+        visit post_path(post)
+      end
+
+      it { should have_content('Any thoughts?') }
+      it { should have_button('Submit') }
+
+      describe "when hitting submit button" do
+        before do
+          fill_in 'comment_content', with: "Oy"
+          #save_and_open_page
+        end 
+
+        it "should create a comment" do
+          expect { click_button 'Submit' }.to change(Comment, :count).by(1)
+        end
+
+        it { should have_content("Oy") }
+
+        describe " seeing the comment's author" do
+          before { sign_in other_user; visit post_path(post) }
+          let(:comment) { FactoryGirl.create(:comment, user: other_user) }
+
+          it { should have_content(comment.name) }
+        end
       end
     end
   end

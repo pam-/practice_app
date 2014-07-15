@@ -1,12 +1,19 @@
-<div id="left-bubble"> <%= link_to experiences_path, :class => "option" do %>
-
-	<p>I <br> GOT <br> PLAYED <br>...</p>
-
-	<% end %>
-
-</div>
+<div class="static-wrapper"> 
+	<div id="left-bubble"> 
+		<%= link_to posts_path, :class => "option" do %>
+			<p>I <br> GOT <br> PLAYED <br>...</p>
+		<% end %>
+	</div>
     
- <div id="right-bubble"> <%= link_to '#', :class => "option" do %>
- 	<p>AM <br> I <br> GETTING <br> PLAYED?</p> 
- 	<% end %>
- </div>
+ 	<div id="right-bubble"> 
+ 		<%= link_to '#', :class => "option" do %>
+ 			<p>AM <br> I <br> GETTING <br> PLAYED?</p> 
+ 		<% end %>
+	</div>
+	<% if !signed_in? %>
+	<div class="signup">
+ 		<p> <%= link_to 'Sign up now!', signup_path %> </p>
+	</div>
+	<% end %>
+</div>
+ 

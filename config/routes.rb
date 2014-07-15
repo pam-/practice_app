@@ -5,11 +5,14 @@ Rails.application.routes.draw do
     end 
   end 
   resources :sessions, only: [:new, :create, :destroy]
-  resources :experiences, path: 'games' do
+  resources :posts, path: 'games' do
     member do
       get :followers, :followed_posts
-    end 
+    end
+
   end 
+  resources :comments, only: [:create, :destroy]
+
   resources :post_relationships, only: [:create, :destroy]
 
   root 'static_pages#home'

@@ -1,5 +1,19 @@
 /* mixins, vars, etc...*/
 
+@mixin bubbles{
+    height: 400px;
+    width: 400px;
+    margin-top: 25px;
+    margin-bottom: 25px;
+    padding-bottom: 20px;
+    border-radius: 20px;
+    background-color: rgba(255,0,0,0.8);
+}
+
+@mixin bubbles-text{
+        font-size: 60px;
+        font-weight: 900;
+}
 
 /* header */
 
@@ -41,16 +55,23 @@ a, a:visited {
 }
 
 
-/* body*/
+/* body index*/
+
+.static-wrapper{
+    padding-bottom: 30px;
+    .signup{
+        font-size: 50px;
+        font-weight: 900;
+        text-align: center;
+        clear: both;
+    }
+}
 
 #left-bubble {
+    @include bubbles;
+    @include bubbles-text;
     float: left;
-    height: 500px;
-    width: 500px;
-    margin-top: 15px;
-    border-radius: 250px;
-    border: 10px solid #eeeeee;
-    margin-left: 40px;
+    margin-left: 150px;
 }
 
 .option {
@@ -58,14 +79,12 @@ a, a:visited {
     font-size: 70px;
     font-weight: 900;
 }
+
 #right-bubble {
-    float: right;
-    height: 500px;
-    width: 500px;
-    margin-top: 15px;
-    border-radius: 250px;
-    border: 10px solid #eeeeee;  
-    margin-right: 40px;
+    @include bubbles;
+    @include bubbles-text;
+    float: right;  
+    margin-right: 150px;
 }
 
 /*wrapper for other pages*/
@@ -76,11 +95,6 @@ a, a:visited {
     margin: 0px auto;
     height: 100%;
     padding-bottom: 80px;
-    p{
-        font-size: 60px;
-        font-weight: 900;
-        line-height: 2;
-    }
 }
 
 /* user page*/
@@ -154,10 +168,14 @@ a, a:visited {
         h1{
             text-align: center;
             padding: 10px;
+
         }
         li{
             padding: 10px;
             margin-top: 20px;
+        }
+        .post-content{
+            width: 300px;
         }
     }
 }
@@ -169,11 +187,11 @@ a, a:visited {
     padding-left: 10px;
     border-radius: 10px;
     padding-bottom: 50px;
+    font-size: 20px;
     ul{
         list-style:none;
         margin-top: 30px;
         padding: 20px;
-        font-size: 20px;
         font-weight: 600;
         li{
             display: block;
@@ -181,6 +199,17 @@ a, a:visited {
             padding: 30px;
             border-bottom: 1px solid #383838;
         }
+    }
+    p{
+        padding-top: 10px;
+    }
+    textarea{
+        width: 800px;
+        height: 100px;
+    }
+    input, textarea{
+        display:block;
+        margin: 10px auto;
     }
 }
 
@@ -236,12 +265,17 @@ a, a:visited {
 .single-title {
     background-color: #eeeeee;
     margin-top: 30px;
-    text-align: center;
     font-size: 40px;
     font-weight: 900;
     padding: 10px;
     color: rgba(255, 0, 0, 0.8);
     cursor: pointer;
+    .timestamp{
+        font-size: 20px;
+    }
+    .far-right{
+        margin-top: -40px;
+    }
 }
 
 .single-post {
@@ -264,7 +298,7 @@ a, a:visited {
 
 .small-button{
     background-color: rgba(255, 0, 0, 0.8);
-    /*border: 1px solid rgba(255, 0, 0, 0.8);*/
+    border: 1px solid rgba(255, 0, 0, 0.8);
     border-radius: 10px;
     padding: 10px;
 }
@@ -275,7 +309,7 @@ a, a:visited {
 
 .far-right {
     background-color: rgba(255, 0, 0, 0.8);
-    /*border: 1px solid rgba(255, 0, 0, 0.8);*/
+    border: 1px solid rgba(255, 0, 0, 0.8);
     border-radius: 10px;
     padding: 10px;
     float: right;
@@ -284,6 +318,19 @@ a, a:visited {
 
 .social {
     margin: 30px;
+}
+.reply-form{
+    p{
+        font-size: 20px;
+    }
+    textarea{
+        border: 1px solid #000;
+        height: 100px;
+        width: 600px;
+        display: block;
+        font-size: 15px;
+        margin-bottom: 10px;
+    }
 }
 
 /* forms */

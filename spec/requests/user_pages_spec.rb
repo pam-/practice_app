@@ -39,7 +39,7 @@ RSpec.describe "UserPages", :type => :request do
 
 	describe "profile page" do
 		let(:user) { FactoryGirl.create(:user) }
-    let!(:m1) { FactoryGirl.create(:experience, user: user, title: "Oula", content: "Lolli") }
+    let!(:m1) { FactoryGirl.create(:post, user: user, title: "Oula", content: "Lolli") }
 
 		before do
       sign_in user
@@ -52,12 +52,12 @@ RSpec.describe "UserPages", :type => :request do
     describe "page posts" do
       it { should have_content(m1.content) }
       it { should have_content(m1.title) }
-      it { should have_content(user.experiences.count) }
+      it { should have_content(user.posts.count) }
     end
 
     describe "followed posts display" do
       let!(:other_user) { FactoryGirl.create(:user) }
-      let!(:post) { FactoryGirl.create(:experience, user: other_user) }
+      let!(:post) { FactoryGirl.create(:post, user: other_user) }
 
       before do 
         user.save
@@ -155,15 +155,15 @@ RSpec.describe "UserPages", :type => :request do
     end
   end
 
-  describe "experiences index do" do
+  describe "posts index do" do
     let!(:user) { FactoryGirl.create(:user) }
 
     before do
       sign_in user
-      visit experiences_path
+      visit posts_path
     end
 
-    let!(:experience) { FactoryGirl.create(:experience, user: user, created_at: 1.day.ago) }
+    let!(:post) { FactoryGirl.create(:post, user: user, created_at: 1.day.ago) }
 
     it { should have_title('Games') }
     it { should have_selector('li') }
@@ -180,13 +180,13 @@ RSpec.describe "UserPages", :type => :request do
 
       before do 
         sign_in other_user
-        visit experiences_path
+        visit posts_path
         #save_and_open_page
       end 
 
       it "should redirect to post content" do
         click_link('read more')
-        page.should have_content(experience.content)
+        page.should have_content(post.content)
       end
     end
   end

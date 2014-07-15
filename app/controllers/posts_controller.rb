@@ -1,36 +1,38 @@
-class ExperiencesController < ApplicationController
+class PostsController < ApplicationController
 
 	before_action :signed_in_user, only: [:index, :create, :destroy, :followers]
 
 	def index
-		@experiences = Experience.paginate(page: params[:page], per_page: 10)
+		@posts = Post.paginate(page: params[:page], per_page: 10)
 	end
 
   def show
-    @experience = Experience.find(params[:id])
+    @post = Post.find(params[:id])
+    @comment = @post.comments if signed_in?
+    @comments = @post.comments.paginate(page: params[:page])
   end
 
   def create 
-    @experience = current_user.experiences.build(experience_params)
-    if @experience.save
+    @post = current_user.posts.build(post_params)
+    if @post.save
       flash[:success] = "Post created!"
-      redirect_to @experience
+      redirect_to @post
     else
       flash.now[:error] = "Couldn't post!"
-      redirect_to current_user
+      redirect_to :back
     end
   end
 
   def destroy
-    Experience.find(params[:id]).destroy
+    Post.find(params[:id]).destroy
     flash[:success] = "Successfully deleted!"
     redirect_to current_user
   end
 
 	private
 
-	def experience_params
-		params.require(:experience).permit(:content, :title)
+	def post_params
+		params.require(:post).permit(:content, :title)
 	end 
 
 	def signed_in_user

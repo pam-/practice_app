@@ -9,9 +9,9 @@ class UsersController < ApplicationController
 
   def show
   	@user = User.find(params[:id])
-    @experience = current_user.experiences.build if signed_in?
-    @experiences = @user.experiences.paginate(page: params[:page], per_page: 5)
-    @feed_items = @user.followed_posts.paginate(page: params[:page])
+    @post = current_user.posts.build if signed_in?
+    @posts = @user.posts.paginate(page: params[:post_page], per_page: 5)
+    @feed_items = @user.followed_posts.paginate(page: params[:feed_item_page], per_page: 2)
   end 
 
   def new

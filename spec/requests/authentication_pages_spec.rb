@@ -85,15 +85,15 @@ RSpec.describe "Authentication", :type => :request do
         end
       end
 
-      describe "Experiences controller" do
+      describe "Posts controller" do
         
         describe "submitting to the create action" do
-          before { post experiences_path }
+          before { post posts_path }
           specify { expect(response).to redirect_to(signin_path) }
         end
 
         describe "submitting to the destroy action" do
-          before { delete experience_path(FactoryGirl.create(:experience)) }
+          before { delete post_path(FactoryGirl.create(:post)) }
           specify { expect(response).to redirect_to(signin_path) }
         end
       end
@@ -127,7 +127,7 @@ RSpec.describe "Authentication", :type => :request do
         specify { expect(response).to redirect_to(root_url) }
       end
 
-      #describe "submitting a DELETE request to the Experiences#destroy action" do
+      #describe "submitting a DELETE request to the posts#destroy action" do
         #before { delete  }
       #end
     end

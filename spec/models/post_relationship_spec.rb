@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe PostRelationship, :type => :model do
   let(:follower) { FactoryGirl.create(:user) }
   let(:other_user) { FactoryGirl.create(:user) }
-  let(:followed_post) { FactoryGirl.create(:experience, user: other_user) }
+  let(:followed_post) { FactoryGirl.create(:post, user: other_user) }
   let(:post_relationship) { follower.post_relationships.build(followed_id: followed_post.id) }
 
   subject { post_relationship }

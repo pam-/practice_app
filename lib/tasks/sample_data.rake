@@ -30,7 +30,7 @@ end
 		20.times do
 			title = "Title"
 			content = Faker::Lorem.sentence(5)
-			users.each { |user| user.experiences.create!(content: content, title: title) }
+			users.each { |user| user.posts.create!(content: content, title: title) }
 		end
 	end 
 
@@ -45,7 +45,7 @@ end
 
 	def make_posts_relationships
 		users = User.all
-		posts = Experience.all
+		posts = Post.all
 		followers = users[1..10]
 		followed_posts = posts[1..5]
 		followers.each do |user| 

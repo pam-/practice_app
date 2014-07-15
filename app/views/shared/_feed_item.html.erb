@@ -1,1 +1,14 @@
-<li id="<%= feed_item.id %>"> <%= feed_item.content %> </li>
+<li id="<%= feed_item.id %>"> 
+	<span class="post-title"> <%= feed_item.title %> </span>
+	<span class="post-content"> 
+		<%= feed_item.content %>  
+	</span>
+	<span class="timestamp"> 
+		posted by <%= feed_item.user.name %>, <%= time_ago_in_words(feed_item.created_at) %> ago. 
+	</span>
+	<% if current_user?(@user) && current_user.following_post?(feed_item) %> 
+		<%= form_for(current_user.post_relationships.find_by(followed_id: feed_item.id), html: { method: "delete" }) do |f| %>
+			<%= f.submit 'Unfollow', class: "far-right" %>
+			<% end %>
+	<% end %> 
+</li>

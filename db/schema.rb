@@ -11,26 +11,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140702172839) do
+ActiveRecord::Schema.define(version: 20140711135254) do
 
-  create_table "experiences", force: true do |t|
-    t.string   "content"
+  create_table "comments", force: true do |t|
+    t.text     "content"
+    t.integer  "post_id"
     t.integer  "user_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.string   "title"
-  end
-
-  create_table "interests", force: true do |t|
-    t.integer  "user_id"
-    t.integer  "experience_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  add_index "interests", ["experience_id"], name: "index_interests_on_experience_id"
-  add_index "interests", ["user_id", "experience_id"], name: "index_interests_on_user_id_and_experience_id"
-  add_index "interests", ["user_id"], name: "index_interests_on_user_id"
+  add_index "comments", ["post_id", "user_id", "created_at"], name: "index_comments_on_post_id_and_user_id_and_created_at"
+  add_index "comments", ["post_id"], name: "index_comments_on_post_id"
+  add_index "comments", ["user_id"], name: "index_comments_on_user_id"
 
   create_table "post_relationships", force: true do |t|
     t.integer  "follower_id"
@@ -42,6 +35,16 @@ ActiveRecord::Schema.define(version: 20140702172839) do
   add_index "post_relationships", ["followed_id"], name: "index_post_relationships_on_followed_id"
   add_index "post_relationships", ["follower_id", "followed_id"], name: "index_post_relationships_on_follower_id_and_followed_id", unique: true
   add_index "post_relationships", ["follower_id"], name: "index_post_relationships_on_follower_id"
+
+  create_table "posts", force: true do |t|
+    t.string   "content"
+    t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "title"
+  end
+
+  add_index "posts", ["user_id", "created_at"], name: "index_posts_on_user_id_and_created_at"
 
   create_table "relationships", force: true do |t|
     t.integer  "follower_id"

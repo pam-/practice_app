@@ -1,0 +1,18 @@
+<li>
+	<span class="post-title"><%= link_to post.title, post %></span>
+	<% if current_page?(user_path(current_user)) %> 
+	<span class="post-content">
+		<%= truncate(post.content, length: 50) %> 
+	</span>
+	<% else %> 
+	<span class="post-content">
+		<%= truncate(post.content, length: 200) %>
+	</span>
+	<% end %>
+	<span class="timestamp"> posted <%= time_ago_in_words(post.created_at) %> ago by <%= link_to post.user.name, post.user %>. </span>
+	<% if current_user?(post.user) %>
+		<%= link_to 'delete', post, method: 'delete', data: {confirm: "Are you sure?"}, class: "far-right" %>
+	<% else %>
+		<%= link_to 'read more', post, class: "far-right" %>
+	<% end %>
+</li>

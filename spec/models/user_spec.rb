@@ -16,7 +16,7 @@ RSpec.describe User, :type => :model do
   it { should respond_to(:password_confirmation) }
   it { should respond_to(:remember_token) }
   it { should respond_to(:authenticate) }
-  it { should respond_to(:experiences) }
+  it { should respond_to(:posts) }
   it { should respond_to(:admin) }
   it { should respond_to(:relationships) }
   it { should respond_to(:followed_users) }
@@ -97,24 +97,24 @@ RSpec.describe User, :type => :model do
     its(:remember_token) { should_not be_blank }
   end
 
-  describe "experience associations" do
+  describe "post associations" do
     
     before { @user.save }
-    let!(:older_experience) do
-      FactoryGirl.create(:experience, user: @user, created_at: 1.day.ago)
+    let!(:older_post) do
+      FactoryGirl.create(:post, user: @user, created_at: 1.day.ago)
     end 
-    let!(:newer_experience) { FactoryGirl.create(:experience, user: @user, created_at: 1.hour.ago)  }
+    let!(:newer_post) { FactoryGirl.create(:post, user: @user, created_at: 1.hour.ago)  }
 
-    it "should have the right experiences in the right order" do
-      expect(@user.experiences.to_a).to eq [newer_experience, older_experience]
+    it "should have the right posts in the right order" do
+      expect(@user.posts.to_a).to eq [newer_post, older_post]
     end
 
-    it "should destroy associated experiences" do
-      experiences = @user.experiences.to_a
+    it "should destroy associated posts" do
+      posts = @user.posts.to_a
       @user.destroy
-      expect(experiences).not_to be_empty
-      experiences.each do |experience|
-        expect(Experience.where(id: experience.id)).to be_empty
+      expect(posts).not_to be_empty
+      posts.each do |post|
+        expect(Post.where(id: post.id)).to be_empty
       end 
     end
   end
@@ -144,7 +144,7 @@ RSpec.describe User, :type => :model do
 
   describe "following a post" do
     let(:other_user) { FactoryGirl.create(:user) }
-    let(:post) { FactoryGirl.create(:experience, user: other_user, created_at: 1.day.ago) }
+    let(:post) { FactoryGirl.create(:post, user: other_user, created_at: 1.day.ago) }
 
     before do
       @user.save

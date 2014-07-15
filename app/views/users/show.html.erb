@@ -6,7 +6,7 @@
 			<ul>
 				<% if signed_in? && current_user?(@user) %>
 				<li><%= link_to 'Settings', edit_user_path(@user, current_user), class: "small-button" %></li> 
-				<li> <%= link_to 'Browse', experiences_path, class: "small-button" %> </li>
+				<li> <%= link_to 'Browse', posts_path, class: "small-button" %> </li>
 				<li> <%= link_to  'Sign out', signout_path, method: 'delete', class: "small-button" %></li>
 				<% else %>
 				<li> <%=  link_to 'Follow', '#', class: "small-button" %> </li>
@@ -17,23 +17,25 @@
 
 	<div class="right">
 		<div class="new-post"> 
-				<%= render 'shared/experience_form'%> 
+				<%= render 'shared/post_form'%> 
 		</div>
 		<div class="posts-wrapper">
 				<%= link_to '#' do %> 
 					<h1>
-						MY POSTS <small>( <%= @user.experiences.count %>)</small>
+						MY POSTS <small>( <%= @user.posts.count %>)</small>
 					</h1>
 				<% end %>
-		<% if @user.experiences.any? %>
-		<%= will_paginate @experiences %>
+		<% if @user.posts.any? %>
+			<%= will_paginate @posts, param_name: :post_page %>
 			<ol>
-				<%= render @experiences %>
+				<%= render @posts %>
 			</ol>
 		<% end %>
 		</div>
 		<div class="posts-wrapper">
 					<h1>POSTS I FOLLOW <small>( <%= @user.followed_posts.count %> )</small> </h1>
+
+					<%= will_paginate @feed_items, param_name: :feed_item_page %> 
 					<%= render 'shared/feed' %>
 		</div>
 	</div>
