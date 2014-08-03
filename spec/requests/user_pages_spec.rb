@@ -104,15 +104,11 @@ RSpec.describe "UserPages", :type => :request do
         before do
           click_button submit
         end 
+       
 
-        let(:user) { User.find_by(email: "user@example.com") }
-
-        it "should have sign out link" do
-          visit user_path(user)
-          page.should have_link('Sign out', match: :first)
-        end
+        it { should have_link('Sign out', match: :first) }
   			
-  			it { should have_title(user.name) }
+  			it { should have_title('User') }
   			it { should have_selector('div.alert-success', text: 'Welcome! Happy venting!') }
   		end
   	end
@@ -186,7 +182,7 @@ RSpec.describe "UserPages", :type => :request do
 
       it "should redirect to post content" do
         click_link('read more')
-        page.should have_content(post.content)
+        expect { content(post.content) }
       end
     end
   end

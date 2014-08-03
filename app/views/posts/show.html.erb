@@ -5,17 +5,29 @@
 		<div class="single-title"> 
 			<%= @post.title %> <small class="timestamp">by <%= @post.user.name %></small>
 			<% unless current_user?(@post.user) %> 	
-			<% if current_user.following_post?(@post) %>
-				<%= form_for(current_user.post_relationships.find_by(followed_id: @post.id), html: { method: 'delete' }) do |f| %>
-				<%= f.submit 'Unfollow Post', class: 'far-right' %>
+				<% if current_user.following_post?(@post) %>
+					<%= form_for(current_user.post_relationships.find_by(followed_id: @post.id), html: { method: 'delete' }) do |f| %>
+						<%= f.submit 'Unfollow Post', class: 'far-right' %>
+					<% end %>
+				<% else %>
+					<%= form_for(current_user.post_relationships.build(followed_id: @post.id)) do |f| %>
+						<%= f.hidden_field :followed_id %>
+						<%= f.submit 'Follow Post', class: "far-right" %> 
+					<% end %>
 				<% end %>
-			<% else %>
-				<%= form_for(current_user.post_relationships.build(followed_id: @post.id)) do |f| %>
-				<%= f.hidden_field :followed_id %>
-				<%= f.submit 'Follow Post', class: "far-right" %> 
+			<% end %>	
+			<% if current_user?(@post.user) && @post.categories.empty? %>
+				<%= form_for(@post.categorizations.build(category_id: @category)) do |f| %>
+					<%= f.hidden_field :post_id, value: @post.id %>
+					<%= f.hidden_field :category_id, value: 1 %>
+					<%= f.submit 'Question' %>
 				<% end %>
-			<% end %>
-		<% end %>	
+				<%= form_for(@post.categorizations.build(category_id: @category)) do |f| %>
+				<%= f.hidden_field :post_id, value: @post.id %>
+					<%= f.hidden_field :category_id, value: 2 %>
+					<%= f.submit 'Story' %>
+				<% end %>
+			<% end %> 
 		</div>
 		<div class="single-post">
 			<%= @post.content %> 
@@ -24,12 +36,11 @@
 		
 		</div>
 
-		<% if @post.comments.any? %>
 		<div class="listed">
 
 			<p> ANY THOUGHTS?</p>
 			<%= render 'shared/comment_form' %>
-	
+			<% if @post.comments.any? %>
 			<ul>
 				<%= render partial: 'comments/comment', collection: @post.comments %>
 			</ul>

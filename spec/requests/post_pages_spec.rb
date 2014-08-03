@@ -20,10 +20,10 @@ RSpec.describe "Post Pages", :type => :request do
   		before { visit user_path(user) }
 
   		describe "with valid information" do
-
   			before do 
   				fill_in 'post_title', with: "Hello"
   				fill_in 'post_content', with: "Lorem ipsum" 
+          #CODE TO CHOOSE CATEGORY
   			end 
 
   			it "should create a post" do
@@ -38,6 +38,23 @@ RSpec.describe "Post Pages", :type => :request do
   				expect { click_button('Post').to_not change(Post, :count) }
   			end
   		end
+
+      describe "categorizing the post" do
+        let(:user) { FactoryGirl.create(:user) }
+        let(:post) { FactoryGirl.create(:post, user: user) }
+
+        before do
+          sign_in user
+          visit post_path(post)
+          #save_and_open_page 
+       end 
+
+        describe "creating a story" do
+          before { click_button("Story") }
+
+          its(:categories) { should include("Story") }
+        end
+      end
   	end
   end
 
@@ -87,7 +104,7 @@ RSpec.describe "Post Pages", :type => :request do
         visit post_path(post)
       end
 
-      it { should have_content('Any thoughts?') }
+      it { should have_content('ANY THOUGHTS?') }
       it { should have_button('Submit') }
 
       describe "when hitting submit button" do

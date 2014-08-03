@@ -1,5 +1,12 @@
 require 'rails_helper'
 
 RSpec.describe Categorization, :type => :model do
-  pending "add some examples to (or delete) #{__FILE__}"
+  let(:post) { FactoryGirl.create(:post) }
+  let(:category) { FactoryGirl.create(:category) }
+  let(:categorization) { FactoryGirl.create(:categorization, post_id: post.id, category_id: category.id) }
+
+  subject { categorization }
+
+  it { should respond_to(:post) }
+  it { should respond_to(:category) }
 end

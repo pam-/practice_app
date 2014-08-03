@@ -3,7 +3,7 @@ namespace :db do
 	task populate: :environment do 
 		make_users
 		make_posts
-		make_relationships
+		#make_relationships
 		make_posts_relationships
 	end 
 end 
@@ -34,14 +34,14 @@ end
 		end
 	end 
 
-	def make_relationships
-		users = User.all 
-		user = users.first
-		followed_users = users[2..15]
-		followers = users[3..8]
-		followed_users.each { |followed| user.follow!(followed) }
-		followers.each { |follower| follower.follow!(user) }
-	end
+	# def make_relationships
+	# 	users = User.all 
+	# 	user = users.first
+	# 	followed_users = users[2..15]
+	# 	followers = users[3..8]
+	# 	followed_users.each { |followed| user.follow!(followed) }
+	# 	followers.each { |follower| follower.follow!(user) }
+	# end
 
 	def make_posts_relationships
 		users = User.all

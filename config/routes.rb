@@ -1,16 +1,18 @@
 Rails.application.routes.draw do
   resources :users do
     member do
-      get :following, :followers #url is: /users/1/followers or /users/1/following 
+      get :following, :followers, :followed_posts #url is: /users/1/followers or /users/1/following 
     end 
   end 
   resources :sessions, only: [:new, :create, :destroy]
   resources :posts, path: 'games' do
     member do
-      get :followers, :followed_posts
+      get :followers, :categories
     end
-
   end 
+
+  resources :categorizations, only: [:create]
+
   resources :comments, only: [:create, :destroy]
 
   resources :post_relationships, only: [:create, :destroy]

@@ -17,10 +17,20 @@ class PostsController < ApplicationController
     if @post.save
       flash[:success] = "Post created!"
       redirect_to @post
-    else
+    else 
       flash.now[:error] = "Couldn't post!"
       redirect_to :back
     end
+  end
+
+  def categorize
+    @category = Category.find_by(params[:name])
+
+    if input[:name] == params[:name]
+      @post.categorizations.build(category_id: @category.id)
+    else
+      flash[:error] = "Something went wrong"
+    end 
   end
 
   def destroy
